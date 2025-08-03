@@ -51,6 +51,7 @@ switchbtn.addEventListener("click", () => {
 
 rstbtn.addEventListener("click", () => {
   clearInterval(terminate);
+  switchbtn.innerHTML = `<i class="bi bi-play-fill"></i>`;
   terminate = null;
   min = 0;
   sec = 0;
@@ -60,7 +61,6 @@ rstbtn.addEventListener("click", () => {
   mindis.innerText = "00";
   laptiming = "";
   laptimarr = [];
-  lap.innerHTML = "";
   laptime.innerHTML = "";
 });
 
