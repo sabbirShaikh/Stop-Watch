@@ -1,0 +1,202 @@
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: #fff;
+  background: radial-gradient(1200px 800px at 20% -10%, #151a6a 0%, transparent 60%),
+              radial-gradient(1200px 800px at 120% 110%, #1b226b 0%, transparent 60%),
+              linear-gradient(135deg, #0d103f, #151a6a);
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.65;
+  background: conic-gradient(from 0turn,
+    hsl(200 90% 60% / 0.1), hsl(260 90% 60% / 0.14), hsl(320 90% 60% / 0.14),
+    hsl(20 90% 60% / 0.14), hsl(80 90% 60% / 0.14), hsl(140 90% 60% / 0.14),
+    hsl(200 90% 60% / 0.1));
+  animation: spinOverlay 36s linear infinite;
+}
+
+@keyframes spinOverlay {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
+}
+
+/* Timer */
+.time-container {
+  margin: 40px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(92vw, 760px);
+  height: clamp(140px, 26vw, 220px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  color: rgba(255,255,255,0.9);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+}
+
+.timer, .colon {
+  font-size: clamp(3rem, 11vw, 9rem);
+  font-weight: 800;
+  padding: 0 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer {
+  min-width: clamp(90px, 22vw, 200px);
+  text-align: center;
+}
+
+.colon {
+  min-width: clamp(28px, 8vw, 80px);
+  opacity: 0.92;
+}
+
+/* Buttons */
+.btns {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin: 20px 0 6px;
+}
+
+.btns span {
+  display: grid;
+  place-items: center;
+  width: clamp(52px, 10vw, 76px);
+  height: clamp(52px, 10vw, 76px);
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  transition: all 0.2s ease;
+  position: relative;
+  font-size: 30px;
+}
+
+.btns span:hover {
+  transform: translateY(-2px) scale(1.03);
+  border-color: rgba(255,255,255,0.35);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45), 0 0 0 4px rgba(255,255,255,0.14);
+}
+
+.btns span:active {
+  transform: scale(0.98);
+}
+
+#lapbtn::after,
+#reset::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+#lapbtn::after {
+  box-shadow: inset 0 0 0 2px hsl(188 90% 60% / 0.65);
+}
+
+#reset::after {
+  box-shadow: inset 0 0 0 2px hsl(20 90% 60% / 0.65);
+}
+
+#lapbtn:hover::after,
+#reset:hover::after {
+  opacity: 1;
+}
+
+/* Lap Table */
+.wrapper {
+  width: min(92vw, 760px);
+}
+
+.lap-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  color: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  overflow: hidden;
+}
+
+.lap-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.lap-table th,
+.lap-table td {
+  padding: 10px 14px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.lap-table th {
+  background: rgba(255,255,255,0.08);
+  font-weight: bold;
+}
+
+.lap-body-scroll {
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.lap-body-scroll tr:nth-child(even) {
+  background: rgba(255,255,255,0.06);
+}
+
+.lap-body-scroll td {
+  font-variant-numeric: tabular-nums;
+}
+
+.lap-body-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.lap-body-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.35);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.lap-body-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (max-width: 576px) {
+  .lap-card {
+    padding: 14px;
+  }
+}
